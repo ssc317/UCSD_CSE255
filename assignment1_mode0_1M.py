@@ -9,6 +9,11 @@ import numpy
 import string
 import mylib
 [train_data, valid_data] = mylib.loadData('../train_valid_1M')
+td = []
+for t in train_data:
+    if t['helpful']['outOf'] != 0:
+        td.append(t)
+train_data = td
 helpful_train_y = [-1 if t['helpful']['outOf'] == 0 else t['helpful']['nHelpful'] * 1.0 /t['helpful']['outOf'] for t in train_data]
 
 

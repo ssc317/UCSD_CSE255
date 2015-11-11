@@ -23,6 +23,7 @@ helpful_train_y = [-1 if t['helpful']['outOf'] == 0 else t['helpful']['nHelpful'
 def feature(datum):
   feat = [1]
   punc = string.punctuation
+  review = ''.join([o if not o in punc else ' ' for o in list(datum['reviewText'])]).split()
   review = len(''.join([o for o in list(datum['reviewText']) if not o in punc]).split())
   feat.append(review)
   feat.append(datum['rating'])
@@ -30,7 +31,8 @@ def feature(datum):
   
 helpful_train_X = [feature(d) for d in train_data]
 theta,residuals,rank,s = numpy.linalg.lstsq(helpful_train_X, helpful_train_y)
-mylib.saveData('../data/theta_mode1_1M',[theta])
+mylib.saveData('../data/theta_mode0_1M',[theta])
+[o if not o in punc else ' ' for o in list('aab bbc,e(ee,ff)')]
 # In[] predict
 import numpy
 import string
@@ -54,7 +56,7 @@ pairs_Helpful0 = deepcopy(pairs_Helpful)
 pairs_Helpful.sort(key=lambda x:x[0])
 pairs_Helpful.sort(key=lambda x:x[1])
 
-data_ = mylib.parseDataFromFile("./helpful.json")
+data_ = mylib.parseDataFromFile("../helpful.json")
 data_.sort(key=lambda x:x['reviewerID'])
 data_.sort(key=lambda x:x['itemID'])
 test_data = []
