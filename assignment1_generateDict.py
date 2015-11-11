@@ -38,6 +38,7 @@ for l in readGz("../train.json.gz"):
     outOf = l['helpful']['outOf']
     review = ''.join([o for o in list(l['reviewText']) if not o in punc]).split()
     for word in review:
+        word = word.lower()
         if word not in stopwords:
             if outOf != 0:
                 nHelpful = l['helpful']['nHelpful'] * 1.0;
@@ -54,5 +55,5 @@ for l in readGz("../train.json.gz"):
         mylib.saveData('../dicts_50000',[dict_all, dict_count, dict_nHelpful, dict_helpful])
     elif i == 500000:
         mylib.saveData('../dicts_500000',[dict_all, dict_count, dict_nHelpful, dict_helpful])
-    if i > 500000:
+    if i == 500000:
         break
