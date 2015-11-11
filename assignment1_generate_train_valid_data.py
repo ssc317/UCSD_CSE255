@@ -13,7 +13,7 @@ def readGz(f):
 
 data_ = []
 for l in readGz("../train.json.gz"):
-    data_append(l)
+    data.append(l)
 train_data = data[:500000]
 valid_data = data[500000:]
 mylib.saveData('../train_valid_1M',[train_data, valid_data])
