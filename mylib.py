@@ -44,3 +44,11 @@ import numpy
 def plot(x,y):
     plt.plot(x,y)
     plt.show()
+
+# In[] dict operation
+from collections import OrderedDict
+from operator import itemgetter
+def sortDict(d,i):
+    d = OrderedDict(sorted(d.items(), key=itemgetter(i)))
+    return d
+    

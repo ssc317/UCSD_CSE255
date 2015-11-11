@@ -30,7 +30,7 @@ import mylib
 from copy import deepcopy
 pairs_Helpful = []
 pairs_HelpfulOf0 = []
-f = open('./assignment1/data/pairs_Helpful.txt')
+f = open('./pairs_Helpful.txt')
 for line in f:
     if line.startswith('userID'):
         pass
@@ -46,7 +46,7 @@ pairs_Helpful0 = deepcopy(pairs_Helpful)
 pairs_Helpful.sort(key=lambda x:x[0])
 pairs_Helpful.sort(key=lambda x:x[1])
 
-data_ = mylib.parseDataFromFile("./assignment1/data/helpful.json")
+data_ = mylib.parseDataFromFile("./helpful.json")
 data_.sort(key=lambda x:x['reviewerID'])
 data_.sort(key=lambda x:x['itemID'])
 test_data = []
