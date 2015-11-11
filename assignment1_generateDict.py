@@ -33,7 +33,7 @@ stopwords = ['i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you',
 dict_all, dict_count, dict_nHelpful, dict_helpful = defaultdict(float),defaultdict(int),defaultdict(float),defaultdict(float)
 
 i = 0
-
+print "start for loop"
 for l in readGz("../train.json.gz"):
     outOf = l['helpful']['outOf']
     review = ''.join([o for o in list(l['reviewText']) if not o in punc]).split()
