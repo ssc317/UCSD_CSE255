@@ -7,7 +7,7 @@ Created on Thu Oct 22 16:21:43 2015
 # In[] generate small train file
 import gzip
 from collections import defaultdict
-
+import string
 def readGz(f):
   for l in gzip.open(f):
     yield eval(l)
@@ -31,7 +31,7 @@ stopwords = ['i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you',
 'too', 'very', 's', 't', 'can', 'will', 'just', 'don', 'should', 'now']
 
 dict_all, dict_count, dict_nHelpful, dict_helpful = defaultdict(float),defaultdict(int),defaultdict(float),defaultdict(float)
-
+punc = string.punctuation
 i = 0
 print "start for loop"
 for l in readGz("../train.json.gz"):
