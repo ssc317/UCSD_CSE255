@@ -43,7 +43,8 @@ helpful_train_y = [-1 if t['helpful']['outOf'] == 0 else t['helpful']['nHelpful'
 def feature(datum):
   feat = [1]
   punc = string.punctuation
-  review = ''.join([o.lower() if not o in punc else ' ' for o in list(datum['reviewText'])]).split()
+  review = ''.join([o for o in list(datum['reviewText']) if not o in punc]).split()
+  #review = ''.join([o.lower() if not o in punc else ' ' for o in list(datum['reviewText'])]).split()
   feat.append(len(review))
   feat.append(datum['rating'])
   for word in feature_word:
@@ -70,7 +71,8 @@ helpful_valid_y = [0 if t['helpful']['outOf'] == 0 else t['helpful']['nHelpful']
 def feature(datum):
   feat = [1]
   punc = string.punctuation
-  review = ''.join([o.lower() if not o in punc else ' ' for o in list(datum['reviewText'])]).split()
+  review = ''.join([o for o in list(datum['reviewText']) if not o in punc]).split()  
+  #review = ''.join([o.lower() if not o in punc else ' ' for o in list(datum['reviewText'])]).split()
   feat.append(len(review))
   feat.append(datum['rating'])
   for word in feature_word:
