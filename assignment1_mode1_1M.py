@@ -5,7 +5,16 @@ Created on Tue Nov 10 22:35:40 2015
 @author: ssc317
 """
 
-feature_word = ['book','story','read','one','like','love','characters','really','would','good']
+feature_word = ['book',
+ 'one',
+ 'story',
+ 'read',
+ 'like',
+ 'love',
+ 'would',
+ 'characters',
+ 'really',
+ 'time']
 feature_word2 = ['book','story','read','one','like','love','characters','really','would','good']
 # -*- coding: utf-8 -*-
 """
