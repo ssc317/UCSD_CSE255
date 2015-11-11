@@ -31,12 +31,10 @@ stopwords = ['i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you',
 'too', 'very', 's', 't', 'can', 'will', 'just', 'don', 'should', 'now']
 
 dict_all, dict_count, dict_nHelpful, dict_helpful = defaultdict(float),defaultdict(int),defaultdict(float),defaultdict(float)
-i = 0
-for l in readGz("train.json.gz"):
-    i += 1;
+
 i = 0
 
-for l in readGz("train.json.gz"):
+for l in readGz("../train.json.gz"):
     outOf = l['helpful']['outOf']
     review = ''.join([o for o in list(l['reviewText']) if not o in punc]).split()
     for word in review:
@@ -49,12 +47,12 @@ for l in readGz("train.json.gz"):
             dict_all[word] += 1
     i += 1
     if i == 500:
-        mylib.saveData('dicts_500',[dict_all, dict_count, dict_nHelpful, dict_helpful])
+        mylib.saveData('../dicts_500',[dict_all, dict_count, dict_nHelpful, dict_helpful])
     elif i == 5000:
-        mylib.saveData('dicts_5000',[dict_all, dict_count, dict_nHelpful, dict_helpful])
+        mylib.saveData('../dicts_5000',[dict_all, dict_count, dict_nHelpful, dict_helpful])
     elif i == 50000:
-        mylib.saveData('dicts_50000',[dict_all, dict_count, dict_nHelpful, dict_helpful])
+        mylib.saveData('../dicts_50000',[dict_all, dict_count, dict_nHelpful, dict_helpful])
     elif i == 500000:
-        mylib.saveData('dicts_500000',[dict_all, dict_count, dict_nHelpful, dict_helpful])
+        mylib.saveData('../dicts_500000',[dict_all, dict_count, dict_nHelpful, dict_helpful])
     if i > 500000:
         break
