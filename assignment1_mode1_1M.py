@@ -15,7 +15,7 @@ feature_word = ['book',
  'characters',
  'really',
  'time']
-feature_word2 = ['book','story','read','one','like','love','characters','really','would','good']
+ feature_word = []
 # -*- coding: utf-8 -*-
 """
 Created on Tue Nov 10 22:02:00 2015
