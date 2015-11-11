@@ -46,7 +46,7 @@ pairs_Helpful0 = deepcopy(pairs_Helpful)
 pairs_Helpful.sort(key=lambda x:x[0])
 pairs_Helpful.sort(key=lambda x:x[1])
 
-data_ = mylib.parseDataFromFile("./helpful.json")
+data_ = mylib.parseDataFromFile("../helpful.json")
 data_.sort(key=lambda x:x['reviewerID'])
 data_.sort(key=lambda x:x['itemID'])
 test_data = []
