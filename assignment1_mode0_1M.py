@@ -22,7 +22,7 @@ def feature(datum):
   
 helpful_train_X = [feature(d) for d in train_data]
 theta,residuals,rank,s = numpy.linalg.lstsq(helpful_train_X, helpful_train_y)
-
+mylib.saveData('../data/theta_mode0_1M',[theta])
 # In[] predict
 import numpy
 import string
