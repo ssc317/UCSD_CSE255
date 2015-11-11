@@ -6,6 +6,7 @@ Created on Tue Nov 10 22:35:40 2015
 """
 
 feature_word = ['book','story','read','one','like','love','characters','really','would','good']
+feature_word2 = ['book','story','read','one','like','love','characters','really','would','good']
 # -*- coding: utf-8 -*-
 """
 Created on Tue Nov 10 22:02:00 2015
@@ -17,22 +18,65 @@ import numpy
 import string
 import mylib
 [train_data, valid_data] = mylib.loadData('../train_valid_1M')
+td = []
+i = 0
+num = 100000
+for t in train_data:
+    if t['helpful']['outOf'] != 0:
+        td.append(t)
+    i += 1
+    if i == num:
+        break
+train_data = td
 helpful_train_y = [-1 if t['helpful']['outOf'] == 0 else t['helpful']['nHelpful'] * 1.0 /t['helpful']['outOf'] for t in train_data]
 
 
 def feature(datum):
   feat = [1]
   punc = string.punctuation
-  review = ''.join([o if not o in punc else ' ' for o in list(datum['reviewText'])]).split()
-  review = len(''.join([o for o in list(datum['reviewText']) if not o in punc]).split())
-  feat.append(review)
+  review = ''.join([o.lower() if not o in punc else ' ' for o in list(datum['reviewText'])]).split()
+  feat.append(len(review))
   feat.append(datum['rating'])
+  for word in feature_word:
+      feat.append(review.count(word))
   return feat
   
 helpful_train_X = [feature(d) for d in train_data]
 theta,residuals,rank,s = numpy.linalg.lstsq(helpful_train_X, helpful_train_y)
-mylib.saveData('../data/theta_mode0_1M',[theta])
-[o if not o in punc else ' ' for o in list('aab bbc,e(ee,ff)')]
+mylib.saveData('../data/theta_mode1_01M',[theta])
+
+# In[] validation
+import numpy
+import string
+import mylib
+from copy import deepcopy
+valid_data = valid_data[-100000:]
+vd = []
+for v in valid_data:
+    if t['helpful']['outOf'] != 0:
+        vd.append(v)
+valid_data = vd
+helpful_valid_y = [0 if t['helpful']['outOf'] == 0 else t['helpful']['nHelpful'] * 1.0 /t['helpful']['outOf'] for t in valid_data]
+
+def feature(datum):
+  feat = [1]
+  punc = string.punctuation
+  review = ''.join([o.lower() if not o in punc else ' ' for o in list(datum['reviewText'])]).split()
+  feat.append(len(review))
+  feat.append(datum['rating'])
+  for word in feature_word:
+      feat.append(review.count(word))
+  return feat
+  
+
+helpful_valid_X = [feature(d) for d in valid_data]
+helpful_valid_predict = [sum([a*b for a,b in zip(x, theta)]) for x in helpful_valid_X]
+helpful_valid_MAE = sum([abs(a-b) for a,b in zip(helpful_valid_y, helpful_valid_predict)]) / len(helpful_valid_y)
+
+print "validation MAE on nHelpful/outof is " + str(helpful_valid_MAE)
+
+
+
 # In[] predict
 import numpy
 import string
