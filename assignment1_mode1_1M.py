@@ -26,16 +26,15 @@ Created on Tue Nov 10 22:02:00 2015
 import numpy
 import string
 import mylib
-[train_data, valid_data] = mylib.loadData('../train_valid_1M')
+[data_] = mylib.loadData('../train_1M')
+train_data = data_[:100000]
+valid_data = data_[900000:]
 td = []
 i = 0
-num = 100000
 for t in train_data:
     if t['helpful']['outOf'] != 0:
         td.append(t)
     i += 1
-    if i == num:
-        break
 train_data = td
 helpful_train_y = [-1 if t['helpful']['outOf'] == 0 else t['helpful']['nHelpful'] * 1.0 /t['helpful']['outOf'] for t in train_data]
 
@@ -60,12 +59,7 @@ import numpy
 import string
 import mylib
 from copy import deepcopy
-valid_data = valid_data[-100000:]
-vd = []
-for v in valid_data:
-    if t['helpful']['outOf'] != 0:
-        vd.append(v)
-valid_data = vd
+
 helpful_valid_y = [0 if t['helpful']['outOf'] == 0 else t['helpful']['nHelpful'] * 1.0 /t['helpful']['outOf'] for t in valid_data]
 
 def feature(datum):
