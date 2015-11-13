@@ -1,9 +1,9 @@
 # In[] load 1M data
 import mylib
-data_ = mylib.loadData('../1Mtrain')
-train_data = data_[:900000]
-valid_data = data_[900000:]
-
+#data_ = mylib.loadData('../1Mtrain')
+#train_data = data_[:900000]
+#valid_data = data_[900000:]
+[train_data, valid_data] = mylib.loadData('../HW3train_valid')
 # In[] calculate with a lamda
 from collections import defaultdict
 from math import exp
