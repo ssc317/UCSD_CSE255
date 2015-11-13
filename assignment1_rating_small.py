@@ -1,10 +1,10 @@
 # In[] load 1M data
 import mylib
-
-
 [data_] = mylib.loadData('../1Mtrain')
-train_data = data_[:900000]
+train_data = data_[:100000]
 valid_data = data_[900000:]
+
+print "hello:" + str(train_data[0])
 # In[] calculate with a lamda
 from collections import defaultdict
 from math import exp
@@ -58,8 +58,8 @@ while iterNum > -1:
     covariance = [(alpha - new_alpha)**2] + [(b-nb)**2 for b,nb in zip(beta_i.values(), new_beta_i.values())] + [(b-nb)**2 for b,nb in zip(beta_u.values(), new_beta_u.values())]
     covariance = sum(numpy.sqrt(covariance))
     print "covariance is "+str(covariance)
-    #if(alpha==new_alpha and beta_i == new_beta_i and beta_u == new_beta_u):
-    if(covariance < 1e-10):
+    if(alpha==new_alpha and beta_i == new_beta_i and beta_u == new_beta_u):
+    #if(covariance < 1e-10):
         break
     else:
         alpha, beta_i, beta_u, iterNum = new_alpha, new_beta_i, new_beta_u, iterNum+1
@@ -72,4 +72,4 @@ for d in valid_data:
 rating_valid_predict = [sum(para) for para in rating_valid_parameters]
 rating_valid_MSE = mse(rating_valid_predict, rating_valid_y)
 print "MSE of validation set is "+ str(rating_valid_MSE)
-mylib.saveData('1M_train_rating',[alpha, beta_u, beta_i])
+mylib.saveData('01M_train_rating',[alpha, beta_u, beta_i])
