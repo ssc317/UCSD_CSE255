@@ -1,6 +1,6 @@
 # In[] load 1M data
 import mylib
-data_ = mylib.loadData('data/1Mtrain')
+data_ = mylib.loadData('../1Mtrain')
 train_data = data_[:900000]
 valid_data = data_[900000:]
 
@@ -8,6 +8,7 @@ valid_data = data_[900000:]
 from collections import defaultdict
 from math import exp
 import numpy
+
 alpha0 = 4.21824 #numpy.random.rand() #4.21824
 beta_u0 = { uid: 0 for uid in Iu.keys()}
 beta_i0 = { iid: 0 for iid in Ui.keys()}
