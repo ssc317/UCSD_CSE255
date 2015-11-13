@@ -9,6 +9,26 @@ from collections import defaultdict
 from math import exp
 import numpy
 
+def getRui(data):
+    Rui = {};
+    for d in data:
+        Rui[(d['reviewerID'], d['itemID'])] = d['rating']
+    return Rui
+
+def getIu_Ui(data):
+    Iu, Ui = {},{}
+    for d in data:
+        if d['reviewerID'] not in Iu:
+            Iu[d['reviewerID']]= []
+        if d['itemID'] not in Ui:
+            Ui[d['itemID']] = []
+        Iu[d['reviewerID']].append(d['itemID'])
+        Ui[d['itemID']].append(d['reviewerID'])
+    return [Iu, Ui]
+
+Rui = getRui(train_data)
+[Iu, Ui] = getIu_Ui(train_data)
+
 alpha0 = 4.21824 #numpy.random.rand() #4.21824
 beta_u0 = { uid: 0 for uid in Iu.keys()}
 beta_i0 = { iid: 0 for iid in Ui.keys()}
