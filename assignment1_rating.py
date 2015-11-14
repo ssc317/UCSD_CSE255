@@ -30,7 +30,7 @@ def getIu_Ui(data):
 Rui = getRui(train_data)
 [Iu, Ui] = getIu_Ui(train_data)
 
-alpha0 = 4.21824 #numpy.random.rand() #4.21824
+alpha0 = 0 #numpy.random.rand() #4.21824
 beta_u0 = { uid: 0 for uid in Iu.keys()}
 beta_i0 = { iid: 0 for iid in Ui.keys()}
 rating_valid_y = [d['rating'] for d in valid_data]
@@ -39,6 +39,7 @@ def mse(rating_valid_predict, rating_valid_y):
 lamdas = [1,2,3,4,5,6,7,8,9,10]
 thetas = []
 MSEs = []
+covariance = 0
 for lamda in lamdas:
     iterNum = 0
     beta_u = beta_u0
@@ -51,22 +52,16 @@ for lamda in lamdas:
             new_beta_u[u] = sum([ Rui[(u,i)] - new_alpha - beta_i[i] for i in Iu[u]]) / (lamda + len(Iu[u]))
         for i in Ui.keys():
             new_beta_i[i] = sum([ Rui[(u,i)] - alpha - new_beta_u[u] for u in Ui[i]]) / (lamda + len(Ui[i]))
-        covariance_alpha = abs(alpha - new_alpha)**2
-        covariance_beta_i, covariance_beta_u = 0,0
-        for i in beta_i:
-            covariance_beta_i += abs(beta_i[i] - new_beta_i[i])**2
-        for u in beta_u:
-            covariance_beta_u += abs(beta_u[u] - new_beta_u[u])**2
-        covariance = numpy.sqrt(covariance_alpha + covariance_beta_i + covariance_beta_u)
-        covariance = [(alpha - new_alpha)**2] + [(b-nb)**2 for b,nb in zip(beta_i.values(), new_beta_i.values())] + [(b-nb)**2 for b,nb in zip(beta_u.values(), new_beta_u.values())]
-        covariance = sum(numpy.sqrt(covariance))
-        print "covariance is "+str(covariance)
+        new_covariance = [(alpha - new_alpha)**2] + [(b-nb)**2 for b,nb in zip(beta_i.values(), new_beta_i.values())] + [(b-nb)**2 for b,nb in zip(beta_u.values(), new_beta_u.values())]
+        new_covariance = sum(numpy.sqrt(new_covariance))
+        print "covariance is "+str(new_covariance)
         #if(alpha==new_alpha and beta_i == new_beta_i and beta_u == new_beta_u):
-        if(covariance < 1e-10):
+        #if(covariance < 1e-10):
+        if(covariance == new_covariance):
             break
         else:
-            alpha, beta_i, beta_u, iterNum = new_alpha, new_beta_i, new_beta_u, iterNum+1
-            print "Finish iter " + str(iterNum) + "with lamda " + str(lamda)
+            alpha, beta_i, beta_u, iterNum, covariance = new_alpha, new_beta_i, new_beta_u, iterNum+1, new_covariance
+            print "Finish iter " + str(iterNum) + " with lamda " + str(lamda)
         rating_valid_parameters = []
         for d in valid_data:
             rating_valid_parameters.append([alpha, beta_u[d['reviewerID']], beta_i[d['itemID']]])
