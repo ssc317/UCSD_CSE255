@@ -62,14 +62,14 @@ for lamda in lamdas:
         else:
             alpha, beta_i, beta_u, iterNum, covariance = new_alpha, new_beta_i, new_beta_u, iterNum+1, new_covariance
             print "Finish iter " + str(iterNum) + " with lamda " + str(lamda)
-        rating_valid_parameters = []
-        for d in valid_data:
-            rating_valid_parameters.append([alpha, beta_u[d['reviewerID']], beta_i[d['itemID']]])
-        rating_valid_predict = [sum(para) for para in rating_valid_parameters]
-        rating_valid_MSE = mse(rating_valid_predict, rating_valid_y)
-        MSEs.append(rating_valid_MSE)
-        thetas.append([alpha,beta_u,beta_i])
-        print "MSE of validation set is "+ str(rating_valid_MSE)
+    rating_valid_parameters = []
+    for d in valid_data:
+        rating_valid_parameters.append([alpha, beta_u[d['reviewerID']], beta_i[d['itemID']]])
+    rating_valid_predict = [sum(para) for para in rating_valid_parameters]
+    rating_valid_MSE = mse(rating_valid_predict, rating_valid_y)
+    MSEs.append(rating_valid_MSE)
+    thetas.append([alpha,beta_u,beta_i])
+    print "MSE of validation set is "+ str(rating_valid_MSE)
 print MSEs
 # In[] validation
 index = thetas.index(min(MSEs))
