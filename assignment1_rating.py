@@ -36,7 +36,7 @@ beta_i0 = { iid: 0 for iid in Ui.keys()}
 rating_valid_y = [d['rating'] for d in valid_data]
 def mse(rating_valid_predict, rating_valid_y):
         return sum((a-b)**2 for a,b in zip(rating_valid_predict,rating_valid_y)) / len(rating_valid_y)
-lamdas = [1,2,3,4,5,6,7,8,9,10]
+lamdas = [3]
 thetas = []
 MSEs = []
 covariance = 0
@@ -72,7 +72,7 @@ for lamda in lamdas:
     print "MSE of validation set is "+ str(rating_valid_MSE)
 print MSEs
 # In[] validation
-index = thetas.index(min(MSEs))
+index = MSEs.index(min(MSEs))
 [alpha,beta_u,beta_i] = thetas[index]
 rating_valid_parameters = []
 for d in valid_data:
