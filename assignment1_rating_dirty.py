@@ -43,6 +43,8 @@ def getDirtyUI(Rui, Iu, Ui, dirty_feature):
             rating_list = []
             for i in Iu[u]:
                 rating_list.append(Rui[(u,i)])
+            print "test1" + str(rating_list)
+	    print "test2" + str(numpy.std(rating_list))
             if numpy.std(rating_list) < rating_std:
                 if numpy.mean(rating_list)>rating_bound[1] or numpy.mean(rating_list)<rating_bound[0]:
                     dirty_u[u] = numpy.mean(rating_list)
