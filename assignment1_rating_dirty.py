@@ -37,7 +37,7 @@ import numpy
 def getDirtyUI(Rui, Iu, Ui, dirty_feature):
     dirty_u = {}
     dirty_i = {}
-    [dirty_limit, rating_bound, rating_std] = dirty_feature
+    [dirty_limit, rating_std, rating_bound] = dirty_feature
     for u in Iu.keys():
         if dirty_limit < len(Iu[u]):
             rating_list = []
@@ -134,6 +134,10 @@ def test_dirty(alpha, beta_u, beta_i, dirty_u, dirty_i):
 train_data = data_[:900000]
 valid_data = data_[900000:]
 del data_
+
+dirty_limits = [10,11,12,13,14,15,16,17,18,19,20]
+sds = [0.3,0.5,0.7,0.9,1.0,2.0]
+dirty_bound = [[2.6,4.4],[2.8,4.2],[3,4],[3.5,3.5]]
 MSEs = [[[0 for dbi in range(len(dirty_bound))] for si in range(len(sds))] for dli in range(len(dirty_limits))]
 thetas = [[[0 for dbi in range(len(dirty_bound))] for si in range(len(sds))] for dli in range(len(dirty_limits))]
 for dli in range(len(dirty_limits)):
