@@ -151,5 +151,6 @@ for dli in range(len(dirty_limits)):
             MSE = validate_dirty(valid_data, dirty_u, dirty_i, alpha, beta_u, beta_i)
             MSEs[dli][si][dbi] = MSE
             thetas[dli][si][dbi] = [alpha, beta_i, beta_u, dirty_u, dirty_i]
+            print "dirty_limit: " + str(dl) + "  std: "+str(s)+ "  dirty bound: "+ str(db) + "==> MSE: " + MSE 
+            mylib.saveData('dirty_features_theta', [MSEs,thetas])
 print MSEs
-mylib.saveData('dirty_features_theta', [MSEs,thetas])
