@@ -44,7 +44,7 @@ def getDirtyUI(Rui, Iu, Ui, dirty_feature):
             for i in Iu[u]:
                 rating_list.append(Rui[(u,i)])
             if numpy.std(rating_list) < rating_std:
-                if numpy.mean(rating_list)>rating_bound[1] or numpy.mean(rating_list)<rating_bound[0]:
+                if numpy.mean(rating_list) > rating_bound[1] or numpy.mean(rating_list) < rating_bound[0]:
                     dirty_u[u] = numpy.mean(rating_list)
     for i in Ui.keys():
         if dirty_limit < len(Ui[i]):
@@ -130,7 +130,7 @@ def test_dirty(alpha, beta_u, beta_i, dirty_u, dirty_i):
     
 # In[]================================================================================
 # In[] main
-[data_] = mylib.loadData('../1Mtrain')
+[data_] = mylib.loadData('./assignment1/data/1Mtrain')
 train_data = data_[:900000]
 valid_data = data_[900000:]
 del data_
@@ -146,7 +146,7 @@ for dli in range(len(dirty_limits)):
         s = sds[si]
         for dbi in range(len(dirty_bound)):
             db = dirty_bound[dbi]
-            dirty_feature = [dl, db, s]
+            dirty_feature = [dl, s, db]
             [alpha, beta_i, beta_u, dirty_u, dirty_i] = convergence_dirty(train_data, 3, dirty_feature)
             MSE = validate_dirty(valid_data, dirty_u, dirty_i, alpha, beta_u, beta_i)
             MSEs[dli][si][dbi] = MSE
